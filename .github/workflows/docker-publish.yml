@@ -27,5 +27,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          platforms: linux/amd64,linux/arm64, linux/386
-          tags: redamancy2319/nezha-agent:latest
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nezha-agent:latest
