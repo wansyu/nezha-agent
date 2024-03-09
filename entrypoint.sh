@@ -19,8 +19,8 @@ if [ -n "${platform}" ] || [ -n "${version}" ]; then
 fi
 if [[ -z "${proxy}" ]]; then
     # echo "proxy is empty!"
-    exec /usr/local/bin/gg --node ${proxy} /usr/local/bin/nezha-agent -s ${domain}:${port} -p ${secret} ${args}
+    exec /usr/local/bin/nezha-agent -s ${domain}:${port} -p ${secret} ${args}
 else
     echo "proxy is used!"
-    exec /usr/local/bin/nezha-agent -s ${domain}:${port} -p ${secret} ${args}
+    exec /usr/local/bin/gg --node ${proxy} /usr/local/bin/nezha-agent -s ${domain}:${port} -p ${secret} ${args}
 fi
