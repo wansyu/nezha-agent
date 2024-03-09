@@ -19,9 +19,10 @@
 | args     | nezha-agent 支持的额外参数 | --disable-auto-update |
 | platform | 系统名                     | 空                    |
 | version  | 系统版本                   | 空                    |
+| proxy    | 代理节点                   | 空                    |
 #### 在命令行下安装(需要预装Docker环境)
 ```shell
-docker run -d -e domain='<面板域名>' -e port='<面板端口>' -e secret='<节点密钥>' -e args='<nezha-agent运行额外参数>' -e platform='<自定义系统名>:' -e version='<自定义系统版本>' --net='host' --name='<容器名>' redamancy2319/nezha-agent:latest
+docker run -d -e domain='<面板域名>' -e port='<面板端口>' -e secret='<节点密钥>' -e args='<nezha-agent运行额外参数>' -e platform='<自定义系统名>:' -e version='<自定义系统版本>' -e proxy='<自定义http(s)/socks节点>' --net='host' --name='<容器名>' wansyu/nezha-agent:latest
 ```
 多开可重复执行上方命令，替换为不同面板的参数，容器名不可重复
 #### 关于自定义系统名称和系统版本功能的问题
