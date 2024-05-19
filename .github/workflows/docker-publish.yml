@@ -1,14 +1,16 @@
 name: nezha-agent
 
-on:
-  push:
-    branches:
-      - 'main'
+on: workflow_dispatch
 
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate release tag
+        id: tag
+        run: |
+          export REMOTEVERSION=$(wget -qO- https://api.github.com/repos/linuxserver/docker-syncthing/tags | gawk -F '["v]' '/name/{print "v"$5;exit}')
+          echo "release_tag=${REMOTEVERSION}" >> $GITHUB_OUTPUT
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -28,4 +30,18 @@ jobs:
         with:
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nezha-agent:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nezha-agent:latest , ${{ secrets.DOCKERHUB_USERNAME }}/nezha-agent:${{ steps.tag.outputs.release_tag }}
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 1
+          keep_minimum_runs: 8
