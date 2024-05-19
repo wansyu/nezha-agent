@@ -1,5 +1,6 @@
 FROM debian:11-slim
 
+ARG NEZHA_VER
 ENV domain="" port="5555" secret="" args="--disable-auto-update" platform="" version=""
 
 WORKDIR /usr/local/bin
