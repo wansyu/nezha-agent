@@ -9,7 +9,7 @@ jobs:
       - name: Generate release tag
         id: tag
         run: |
-          export REMOTEVERSION=$(wget -qO- https://api.github.com/repos/linuxserver/docker-syncthing/tags | gawk -F '["v]' '/name/{print "v"$5;exit}')
+          export REMOTEVERSION=$(wget -qO- https://api.github.com/repos/nezhahq/agent/tags | gawk -F '["v]' '/name/{print "v"$5;exit}')
           echo "release_tag=${REMOTEVERSION}" >> $GITHUB_OUTPUT
       -
         name: Set up QEMU
