@@ -12,6 +12,7 @@ RUN apt-get install -y --no-install-recommends tini wget unzip ca-certificates g
 RUN rm -rf /var/lib/apt/lists/*
 RUN arch=$(uname -m | sed "s#x86_64#amd64#; s#aarch64#arm64#; s#i386#386#")
 RUN NEZHA_VER=$(wget -qO- https://api.github.com/repos/nezhahq/agent/tags | gawk -F '["v]' '/name/{print "v"$5;exit}')
+RUN echo ${NEZHA_VER} ${arch}
 RUN wget -O ./nezha-agent.zip -t 4 -T 5 "https://github.com/nezhahq/agent/releases/download/v${NEZHA_VER}/nezha-agent_linux_${arch}.zip"
 RUN unzip ./nezha-agent.zip
 RUN rm -f ./nezha-agent.zip
