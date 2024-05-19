@@ -8,7 +8,7 @@ WORKDIR /usr/local/bin
 COPY ./entrypoint.sh /usr/local/bin/
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends tini wget unzip ca-certificates
+RUN apt-get install -y --no-install-recommends tini wget unzip ca-certificates gawk
 RUN rm -rf /var/lib/apt/lists/*
 RUN arch=$(uname -m | sed "s#x86_64#amd64#; s#aarch64#arm64#; s#i386#386#")
 RUN NEZHA_VER=$(wget -qO- https://api.github.com/repos/nezhahq/agent/tags | gawk -F '["v]' '/name/{print "v"$5;exit}')
