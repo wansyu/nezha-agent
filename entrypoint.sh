@@ -17,10 +17,6 @@ if [ -n "${platform}" ] || [ -n "${version}" ]; then
         sed -i "s/^VERSION=.*/VERSION=${version}/" /etc/os-release
     fi
 fi
-if [[ -z "${proxy}" ]]; then
-    # echo "proxy is empty!"
-    exec /usr/local/bin/nezha-agent -s ${domain}:${port} -p ${secret} ${args}
-else
-    echo "proxy is used!"
-    exec /usr/local/bin/gg --node ${proxy} /usr/local/bin/nezha-agent -s ${domain}:${port} -p ${secret} ${args}
-fi
+
+exec /usr/local/bin/nezha-agent -s ${domain}:${port} -p ${secret} ${args}
+
